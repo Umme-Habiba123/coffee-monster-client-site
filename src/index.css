@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+
+.dancing-script-font {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
