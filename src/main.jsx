@@ -10,6 +10,7 @@ import MainLayout from './Layouts/MainLayout';
 import Home from './Components/Home';
 import AddCoffee from './Components/AddCoffee';
 import UpdateCoffee from './Components/UpdateCoffee';
+import CoffeeDetails from './Components/CoffeeDetails';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     children:[
       {
         index:true,
+        errorElement:<h1 className='text-5xl text-center mt-50 text-red-600'>404 PAGE NOT FOUND</h1> ,
         loader:()=> fetch('http://localhost:5000/coffees'),
         Component:Home
       },
@@ -26,7 +28,16 @@ const router = createBrowserRouter([
        Component:AddCoffee
       },
       {
-        path:'updateCoffee',
+        path:'coffee/:id',
+        
+        loader: ({ params }) => fetch(`http://localhost:5000/coffees/${params.id}`),
+
+        Component:CoffeeDetails  
+      },
+
+      {
+        path:'updateCoffee/:id',
+      loader: ({ params }) => fetch(`http://localhost:5000/coffees/${params.id}`),
         Component:UpdateCoffee
       }
     ]
