@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
 
 const Navbar = () => {
+    const {user, signOutUser}=use(AuthContext)
+
+    const handleLogOut=()=>{
+          console.log('clicking logOut Button')
+          signOutUser()
+          .then(()=>{
+            console.log('sign Out')
+          }).catch(error=>{
+            console.log(error)
+          })
+    }
+
     const links = <>
-        <Link to={`coffee/:id`}> <li><a >Coffee Details</a></li></Link>
-        <Link to={'updateCoffee/:id'}> <li><a>Update Coffee</a></li></Link>
-        <Link to={'AddCoffee'}> <li><a>Add Coffee </a></li></Link>
+        <Link to={`coffee/:id`}> <li>Coffee Details</li></Link>
+        <Link to={'updateCoffee/:id'}> <li>Update Coffee</li></Link>
+        <Link to={'AddCoffee'}> <li>Add Coffee</li></Link>
     </>
     return (
         <div>
@@ -23,15 +36,30 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <Link to={'/'}>
-                        <p className="btn btn-ghost text-xl dancing-script-font text-4xl">Coffee with Mahi</p></Link>
+                        <p className="btn btn-ghost dancing-script-font text-4xl">Coffee with Mahi</p></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="menu menu-horizontal px-1 gap-8">
                         {links}
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">LogIn</a>
+
+             {
+                   user?  
+                  <button onClick={handleLogOut}  className="btn ml-4">LogOut</button>
+                 :
+                 <>
+                  <Link to={'/logIn'}>
+                    <button className="btn">LogIn</button>
+                  </Link>
+           
+                  <Link to={'/registration'}>
+                    <button className="btn ml-4">Registration</button>
+                  </Link>
+                 </>
+                    }
+                 
                 </div>
             </div>
 

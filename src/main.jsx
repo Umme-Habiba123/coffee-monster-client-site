@@ -11,6 +11,11 @@ import Home from './Components/Home';
 import AddCoffee from './Components/AddCoffee';
 import UpdateCoffee from './Components/UpdateCoffee';
 import CoffeeDetails from './Components/CoffeeDetails';
+import LogIn from './Components/LogIn';
+import LogOut from './Components/LogOut';
+import AuthProvider from './Context/AuthProvider';
+import registration from './Components/Registration';
+import Users from './Components/Users';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path:'coffee/:id',
-        
+
         loader: ({ params }) => fetch(`http://localhost:5000/coffees/${params.id}`),
 
         Component:CoffeeDetails  
@@ -39,6 +44,22 @@ const router = createBrowserRouter([
         path:'updateCoffee/:id',
       loader: ({ params }) => fetch(`http://localhost:5000/coffees/${params.id}`),
         Component:UpdateCoffee
+      },
+      {
+        path:'/logIn',
+        Component: LogIn
+      },
+      {
+        path:'/logOut',
+        Component:LogOut
+      },
+      {
+        path:'/registration',
+        Component: registration
+      },
+      {
+        path:'/users',
+        Component: Users
       }
     ]
   },
@@ -51,6 +72,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+   <AuthProvider>
+     <RouterProvider router={router} />
+   </AuthProvider>
   </StrictMode>,
 )
