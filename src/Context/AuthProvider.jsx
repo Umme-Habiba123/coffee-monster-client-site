@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
                 console.log('user in the auth state change', currentUser)
         })
         return () => {
-            unSubscribe()
+               unSubscribe()
         }
 
     }, [])
